@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,9 +7,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import {Link} from "react-router-dom";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { GlobalContext } from '../../context/GlobalState';
+
+import EditIcon from '@material-ui/icons/Edit';
 
 import { useHistory } from 'react-router-dom';
 
@@ -26,16 +27,11 @@ const useStyles = makeStyles({
     alignItems:"center",
     margin:"10px"
   },
-  downloadWrapper: {
-    display:"flex",
-    width: "5.8rem",
-    alignItems:"center",
-    justifyContent:"space-between",
-    margin:"3px auto 0 auto",
+  editIconStyle: {
+    color:"#009987",
     cursor:"pointer",
-    color:"#3F51B5",
     '&:hover': {
-      color: "1b2a72"
+      color: "#1b2a72"
    }
   }
 
@@ -45,14 +41,17 @@ function createData(variables, values) {
   return { variables, values };
 }
 
-export default function SingleTermDetails({ terms }) {
+export default function SingleTermDetails({ terms}) {
   const classes = useStyles();
   const rows = Object.entries(terms).map(([key, val]) => createData(key, val));
 
-
   let history = useHistory();
-  const goBack = () => {
-    history.push('/')
+
+  const termId = history.location.pathname.substring(7);
+
+
+  const homePage = () => {
+    window.open("/", "_self")
   }
 
   return (
@@ -60,14 +59,14 @@ export default function SingleTermDetails({ terms }) {
      
     <TableContainer component={Paper} className={classes.root}>
       <div className={classes.menuWrapper}>
-        <ArrowBackIcon  color="primary"  cursor="pointer" onClick={goBack}/>
+        <ArrowBackIcon  color="primary"  cursor="pointer" onClick={homePage}/>
             
         </div>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>Variables</TableCell>
-            <TableCell align="right">Values </TableCell>
+            <TableCell></TableCell>
+            <TableCell align="right"><Link to={`/terms/edit?${termId}`}><EditIcon className={classes.editIconStyle}/></Link> </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -77,7 +76,7 @@ export default function SingleTermDetails({ terms }) {
                 {row.variables}
               </TableCell>
              
-              <TableCell align="right">{row.values}</TableCell>
+              <TableCell align="left">{row.values}</TableCell>
 
             </TableRow>
           ))}

@@ -1,5 +1,5 @@
 import React from 'react';
- 
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
 
 
-import useStyles from '../../styles'
+import useStyles from '../../styles';
+
 
 export const Navbar = () => {
     const classes = useStyles();
@@ -22,7 +23,7 @@ const homePage = () => {
         <Toolbar variant="dense">
       
           <Typography variant="h6" color="inherit">
-            <span onClick={homePage} className={ classes.logo }><GroupWorkIcon color="white"/> Terms App</span>
+            <span onClick={homePage} className={ classes.logo }><GroupWorkIcon /><span className={classes.logoPartOne}>Terms</span>App</span>
           </Typography>
         </Toolbar>
       </AppBar>

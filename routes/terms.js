@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { addTerm, getSingleTerm, getTerms, searchTerm} = require('../controllers/terms');
+const { addTerm, editTerm, getSingleTerm, getTerms, searchTerm} = require('../controllers/terms');
 
 
 router
@@ -15,7 +15,7 @@ router
 router
   .route('/:id')
   .get(getSingleTerm)
-
+  .put(editTerm)
 
 
 

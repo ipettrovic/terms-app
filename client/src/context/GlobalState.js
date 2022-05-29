@@ -8,7 +8,9 @@ const initialState = {
   terms: [],
   singleTerm: [],
   searchTermResult: [],
-  searchTermResultError: []
+  searchTermResultError: [],
+  addNotification:'',
+  errorOnAdd: false
 }
 
 // Create context
@@ -75,14 +77,36 @@ export const GlobalProvider = ({ children }) => {
     } catch (err) {
       dispatch({
         type: 'ADD_TERM_ERROR',
+        payload: err.response.data.msg
+      });
+    }
+  }
+
+  //Edit term
+  async function editTerm(term) {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    try {
+      const res = await axios.put(`/api/v1/terms/${term.id}`, term, config);
+      dispatch({
+        type: 'EDIT_TERM_SUCCESS',
+        payload: res.data.data
+      });
+
+    } catch (err) {
+      dispatch({
+        type: 'EDIT_TERM_ERROR',
         payload: err.response.data.error
       });
     }
   }
 
+  
   async function deleteTerm(id) {
-    
-    
     try {
       await axios.delete(`/api/v1/terms/${id}`);
       dispatch({
@@ -116,6 +140,14 @@ export const GlobalProvider = ({ children }) => {
       });
     }
   }
+
+  //Reset  
+
+  async function resetNote() {
+    dispatch({
+      type: 'RESET_NOTIFICATION'
+    });
+  }
   //Terms actions end
   //********************************//
 
@@ -124,11 +156,15 @@ export const GlobalProvider = ({ children }) => {
     singleTerm: state.singleTerm,
     searchTermResult: state.searchTermResult,
     searchTermResultError: state.searchTermResultError,
+    addNotification: state.addNotification,
+    errorOnAdd: state.errorOnAdd,
     getTerms,
     getSingleTerm,
     searchTerm,
     addTerm,
-    deleteTerm
+    editTerm,
+    deleteTerm,
+    resetNote
   }}>
     {children}
   </GlobalContext.Provider >);

@@ -15,6 +15,22 @@ export default makeStyles( () => ({
            color: '#c5cae9',
           }
     },
+    logoPartOne: {
+        color: "#00332d",
+        fontWeight:"700",
+        fontSize:"24px",
+        '&:hover': {
+            color: '#001a17',
+           }
+    },
+    author:{
+        color:"#00332d",
+        display:"flex",
+        justifyContent:"space-around",
+        fontFamily:"monospace",
+        fontSize:"14px",
+        marginTop:"30px"
+    },
     navbar: {
         backgroundColor:'#00695c'
     },

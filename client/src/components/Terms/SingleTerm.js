@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
+
 import useStyles from '../../styles';
 import { GlobalContext } from '../../context/GlobalState';
 import SingleTermDetails from './SingleTermDetails';
@@ -14,7 +15,7 @@ const SingleTerm = (props) => {
     useEffect(()=>{
         getSingleTerm(id);
 
-    },[])
+    },[id])
 
 
     return(

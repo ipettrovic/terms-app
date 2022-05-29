@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState,useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 import { GlobalContext } from '../../context/GlobalState';
 
 
@@ -33,16 +34,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:'#00695c',
     color:"#fff"
   },
-  noteError: {
-    marginBottom:"20px",
-    fontSize:"16px",
-    color:"#f20d0d"
-  },
-  noteSuccess: {
-    marginBottom:"20px",
-    fontSize:"16px",
-    color:"#64dd17"
-  },
   actionIcon: {
     marginBottom: "20px",
     color:'#00695c',
@@ -55,12 +46,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function AddTerm(props) {
+export default function EditTerm(props) {
 
   const classes = useStyles();
-  const { addTerm, addNotification, errorOnAdd, resetNote } = useContext(GlobalContext)
-  const [abbreviation, setAbbreviation] = useState('');
-  const [definition, setDefinition] = useState('');
+  const { editTerm, singleTerm } = useContext(GlobalContext)
+  const [abbreviation, setAbbreviation] = useState(singleTerm.abbreviation);
+  const [definition, setDefinition] = useState(singleTerm.definition);
 
   const updateAbbreviation = e => {
     setAbbreviation(e.target.value);
@@ -70,53 +61,44 @@ export default function AddTerm(props) {
     setDefinition(e.target.value);
   }
 
-    useEffect(()=>{
-
-  },[addNotification,abbreviation, definition])
-
-
-  //Handle submit
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    const newTerm = {
-      abbreviation: abbreviation,
-      definition: definition
-    }
-    
-    addTerm(newTerm);
-    setTimeout(()=>{
-      resetNote()
-   
-    }, 2000) //reset notification - success/error
-  
-  }
-
-  
   const homePage = () => {
     window.open("/", "_self")
   }
 
+  //Handle submit
+  const handleSubmit = e => {
+    e.preventDefault();
+    const id = props.history.location.search.substring(1);
+    const newTerm = {
+      abbreviation: abbreviation,
+      definition: definition,
+      id: id
+    }
+
+    editTerm(newTerm);
+      window.open("/", "_self")
+  }
+  
+
+
   return (
     <div className={classes.root}>
+     
         <div className={classes.formWrapper}>
         <ArrowBackIcon onClick={homePage} className={classes.actionIcon}/>
-          <div  
-          className={errorOnAdd ? classes.noteError : classes.noteSuccess}>
-             <span>{addNotification}</span>   
-            </div>
         <form  
         className={classes.mainForm} 
         autoComplete="off"
         onSubmit={handleSubmit}
         >
+           
             <TextField 
             id="outlined-basic" 
             label="Abbreviation"
             variant="outlined" 
             onChange={updateAbbreviation}
+            value={abbreviation}
             required
-            className='abbreviation'
             />
           
             <TextField
@@ -128,6 +110,7 @@ export default function AddTerm(props) {
                 maxrows={50}
                 variant="outlined"
                 className={classes.textArea}
+                value={definition}
                 required
                 />
                 <Button 
@@ -135,7 +118,7 @@ export default function AddTerm(props) {
                 type="submit"
                     className={classes.formBtn}
                 >
-                  Add Term
+                  Edit Term
                  </Button>
           </form>
         </div>

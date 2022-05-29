@@ -34,13 +34,18 @@ export default (state, action) => {
         error: action.payload
     }
     
-    case "ADD_TERM":
+    case "EDIT_TERM_SUCCESS":
       return {
         ...state,
-        terms: [...state.terms, action.payload]
+       terms: [...state.terms]
       }
-    
 
+    case "EDIT_TERM_ERROR":
+    return {
+      ...state,
+      error: action.payload
+    }
+    
     case "SEARCH_TERM_SUCCESS":
       return {
         ...state,
@@ -57,14 +62,22 @@ export default (state, action) => {
     case "ADD_TERM_SUCCESS": 
       return {
         ...state,
-          terms: [...state.terms, action.payload]
+          terms: [...state.terms, action.payload],
+          addNotification: "Term added successfully! ✔",
+          errorOnAdd: false
       }
     case "ADD_TERM_ERROR": 
       return {
         ...state,
-        error: action.payload
+        addNotification: action.payload,
+        errorOnAdd: true
       }
-
+    case "RESET_NOTIFICATION": 
+    return {
+      ...state,
+      addNotification: null
+    }
+      
     default:
       return state;
   }

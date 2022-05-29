@@ -27,7 +27,7 @@ const Terms = (props) => {
 
     useEffect(()=>{
         getTerms();
-    },[])
+    })
 
 
     
@@ -170,7 +170,8 @@ const Terms = (props) => {
                 </Grow>
                 
             </Container>
-        
+            
+            <p className={classes.author}>2022 © Marko Medik </p>
         </>
     )
 }

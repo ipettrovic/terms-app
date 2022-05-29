@@ -39,15 +39,57 @@ exports.getTerms = async (req, res) => {
 exports.addTerm = async (req, res) => {
     try {
       const { definition, abbreviation } = req.body;
-      const term = await Term.create(req.body);
+      
+      //Term.findOne({ abbreviation }).then(abbr => {
+     //  if (abbr) return res.status(400).json({ msg: 'Term already exists'})});
+
+       const test =  await Term.findOne({ abbreviation }); 
+
+       if(test){
+         return res.status(400).json({ msg: 'Term already exists'})
+       } else {
+        const term = await Term.create(req.body);
+
       return res.status(201).json({
         success: true,
         data: term
       })
+    
+       }
+
     } catch (error) {
       console.log(error);
     }
   }
+
+  // @desc   Edit Term
+// @route  PUT /api/v1/terms:id
+// @access Public (auth has not been implemented yet)           
+
+exports.editTerm = async (req, res) => {
+  try {
+    const { abbreviation, definition } = req.body;
+    const term = await Term.findByIdAndUpdate(req.params.id, req.body);
+    if (!term) {
+      return res.status(404).json({
+        success: false,
+        error: 'Term was not found'
+      })
+    }
+
+    return res.status(201).json({
+      success: true,
+      data: req.body
+    })
+
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: 'Server error!'
+    });
+  }
+}
+
 
 
 // @desc   Get single term
@@ -82,6 +124,8 @@ exports.addTerm = async (req, res) => {
   }
 
 
+
+
 //@desc Search for a specific Term
 // GET /api/v1/api/term/termSearch
 // Search for a specific Term model
@@ -92,6 +136,8 @@ exports.searchTerm = async (req, res) => {
 
       var regex = new RegExp([search, "*"].join(""), "i");
       const term = await Term.findOne({ abbreviation: regex });
+
+
       return res.status(200).json({
         success: true,
         count: term.length,

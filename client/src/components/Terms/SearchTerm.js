@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import {Link} from "react-router-dom";
-import AddTerm from './AddTerm';
+
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -41,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
     display:"flex",
     alignItems: "center",
     justifyContent: "space-evenly",
-    width: "14rem"
+    width: "14rem",
+    fontFamily:"Poppins, sans-serif"
   },
   addIconStyles: {
     backgroundColor:'#00695c',
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchTerm({error}) {
 
   const classes = useStyles();
-  const { searchTerm, searchTermResult, searchTermResultError } = useContext(GlobalContext)
+  const { searchTerm } = useContext(GlobalContext)
   const [search, setSearch] = useState('');
 
 
@@ -71,7 +72,7 @@ setSearch(event.target.value);
 
 const onSubmit = (e) => {
     e.preventDefault();
-    console.log('submitted', search);
+    
     searchTerm(search);
  
 }
@@ -96,17 +97,18 @@ const onSubmit = (e) => {
         </IconButton>
       </Paper>
 
-      <Link className={classes.links} to="/terms/add"><Fab className={classes.addIconStyles} size="small" aria-label="add">
-        <AddIcon />
-      </Fab></Link>
+   
 
       <div className={classes.errorMsgWrapper}>
         {error !== null && error.length !== 0 ? <ErrorIcon color="error"/> : null}
-        
           <span>
             {error}
           </span>
         </div>
+
+        <Link className={classes.links} to="/terms/add"><Fab className={classes.addIconStyles} size="small" aria-label="add">
+        <AddIcon />
+      </Fab></Link>
     </div>
   );
 }

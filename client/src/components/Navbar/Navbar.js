@@ -4,9 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
-import GroupWorkIcon from '@material-ui/icons/GroupWork';
-
-
 import useStyles from '../../styles';
 
 
@@ -23,7 +20,7 @@ const homePage = () => {
         <Toolbar variant="dense">
       
           <Typography variant="h6" color="inherit">
-            <span onClick={homePage} className={ classes.logo }><GroupWorkIcon /><span className={classes.logoPartOne}>Terms</span>App</span>
+            <span onClick={homePage} className={ classes.logo }><span className={classes.logoPartOne}>JAGGAER Vocabulary</span></span>
           </Typography>
         </Toolbar>
       </AppBar>

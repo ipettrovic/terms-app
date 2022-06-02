@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: 400,
     marginBottom: "30px",
-    marginTop:"100px"
+    marginTop:"40px"
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -45,9 +45,12 @@ const useStyles = makeStyles((theme) => ({
     fontFamily:"Poppins, sans-serif"
   },
   addIconStyles: {
-    backgroundColor:'#00695c',
+    backgroundColor:'#b71515',
     color:"#fff",
-    float:"right"
+    float:"right",
+    '&:hover': {
+      backgroundColor: '#e11c1b',
+     }
   },
   links:{
     margin:"0px",

@@ -28,10 +28,10 @@ const useStyles = makeStyles({
     margin:"10px"
   },
   editIconStyle: {
-    color:"#009987",
+    color:"#b71515",
     cursor:"pointer",
     '&:hover': {
-      color: "#1b2a72"
+      color: "#e11c1b"
    }
   }
 

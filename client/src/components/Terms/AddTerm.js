@@ -30,8 +30,11 @@ const useStyles = makeStyles((theme) => ({
   },
   formBtn: {
     marginTop: "20px",
-    backgroundColor:'#00695c',
-    color:"#fff"
+    backgroundColor:'#b71515',
+    color:"#fff",
+    '&:hover': {
+      backgroundColor:  "#e11c1b"
+   }
   },
   noteError: {
     marginBottom:"20px",
@@ -45,10 +48,10 @@ const useStyles = makeStyles((theme) => ({
   },
   actionIcon: {
     marginBottom: "20px",
-    color:'#00695c',
+    color:'#b71515',
     cursor:"pointer",
     '&:hover': {
-      color:  "#009987"
+      color:  "#e11c1b"
    }
   }
   

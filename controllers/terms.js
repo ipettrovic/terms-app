@@ -6,7 +6,8 @@ const Term = require('../models/Term');
 
 exports.getTerms = async (req, res) => {
   try {
-    const terms = await Term.find();
+    const { q } =req.query;
+    const terms = await Term.find({$regex:q}).sort({abbreviation:1}).collation({locale: "en" });
     return res.status(200).json({
       success: true,
       count: terms.length,
@@ -136,7 +137,7 @@ exports.searchTerm = async (req, res) => {
 
       var regex = new RegExp([search, "*"].join(""), "i");
       const term = await Term.findOne({ abbreviation: regex });
-
+    
 
       return res.status(200).json({
         success: true,
@@ -161,3 +162,5 @@ exports.searchTerm = async (req, res) => {
       }
     }
   }
+
+ 

@@ -16,11 +16,11 @@ export default makeStyles( () => ({
           }
     },
     logoPartOne: {
-        color: "#00332d",
+        color: "#fff",
         fontWeight:"700",
-        fontSize:"24px",
+        fontSize:"20px",
         '&:hover': {
-            color: '#001a17',
+            color: '#720d0d',
            }
     },
     author:{
@@ -32,10 +32,10 @@ export default makeStyles( () => ({
         marginTop:"30px"
     },
     navbar: {
-        backgroundColor:'#00695c'
+        backgroundColor:'#E11C1B'
     },
     container: {
-        maxHeight: 600,
+        maxHeight: 1000,
     },
     termsContainer: {
         margin: "70px auto 0 auto"

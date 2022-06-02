@@ -1,4 +1,4 @@
-import React, {  useEffect, useContext } from 'react';
+import React, {  useEffect, useContext, useState } from 'react';
 import useStyles from '../../styles';
 
 import { Container,  Grow, Grid } from "@material-ui/core";
@@ -11,7 +11,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-
+import TermsDisclaimer from './TermsDisclaimer';
 
 import SearchTerm from './SearchTerm';
 
@@ -21,13 +21,13 @@ const Terms = (props) => {
     const { terms, getTerms, searchTermResult, searchTermResultError } = useContext(GlobalContext)
     const classes = useStyles();
 
-
+   
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     useEffect(()=>{
         getTerms();
-    })
+    },[])
 
 
     
@@ -159,6 +159,7 @@ const Terms = (props) => {
             <Container maxwidth="lg" className = {classes.TermsContainer}> 
                 <Grow in> 
                     <Container>
+                        <TermsDisclaimer />
                     <SearchTerm error={searchTermResultError}/>
                         <Grid container justify ="space-between" alignItems="stretch" spacing={3} >
                             <Grid item xs={12} sm={12} lg={12}>
